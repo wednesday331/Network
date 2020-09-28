@@ -1,0 +1,97 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+{% if user.is_authenticated %}
+<button type="button" class="btn btn-modal-createdpost" data-toggle="modal" data-target="#creation">Welcome
+<em>{{request.user.username|title}}</em>, anything on your mind?</button>
+<div class="modal fade" id="creation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLongTitle">Create Post</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button></div>
+<div class="modal-body">
+<form method=post action="{% url 'createdpost' username=user.username %}">
+{% csrf_token %}
+<textarea rows="10" class="form-control" name="textinfo"></textarea>
+<br>
+<div class="modal-footer">
+<button class="btn btn-outline-secondary save" type="submit" value="Create"> Done</button>
+</div></form></div></div></div></div>
+{% endif %}
+{% for post in posts %}
+<div class="card border-secondary">
+<h5 class="card-header"><a href="{% url 'profilepage' username=post.user %}">{{post.user|title}}</a></h5>
+<div class="card-body">
+<h6 class="card-subtitle text-muted">{{post.date}}</h6>
+<p class="card-text">{{post.content}}</p>
+{% if user.is_authenticated %}
+{% if request.user == post.user %}
+<p class="alllikes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
+<button type="button" class="editing" data-toggle="modal" data-target="#editing">Edit</button>
+<button type="button" class="deleting" data-toggle="modal" data-target="#deleting">Delete</button>
+{% elif request.user in post.thumbsuped.all %}
+<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsdown" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+{% else %}
+<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsup" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+{% endif %}
+{% else %}
+<p class="alllikes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
+{% endif %}
+</div></div>
+<div class="modal fade" id="deleting" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog" role="document">
+<div class="modal-content ">
+<div class="modal-header">
+<h4 class="modal-title" id="exampleModalLongTitle">Delete Post</h4>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span></button></div>
+<div class="modal-body">
+<p>Are you sure?</p>
+<div class="modal-footer">
+<form method=post action="{% url 'deleting' postno=post.id %}">
+{% csrf_token %}
+<button class="btn btn-outline-danger save" type="submit" value="Delete"> Delete</button>
+</form></div></div></div></div></div>
+<div class="modal fade" id="editing" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content ">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLongTitle">Edit Post</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button></div>
+<div class="modal-body">
+<form method=post action="{% url 'editing' postno=post.id %}">
+{% csrf_token %}
+<textarea rows="10" class="form-control" name="textinfo">{{post.content}}</textarea>
+<br>
+<div class="modal-footer">
+<button class="btn btn-outline-secondary save" type="submit" value="Save">Done</button>
+</div></form></div></div></div></div>
+{% endfor %}
+<hr>
+<div class="container">
+<ul class="pagination justify-content-center">
+{% if posts.has_previous %}
+<li class="page-item"><a href="?page=1" class="page-link">&laquo; First</a></li>
+<li class="page-item"><a href="?page={{ posts.previous_page_number }}" class="page-link">Previous</a></li>
+{% else %}
+<li class="page-item disabled"><a class="page-link">&laquo; First</a></li>
+<li class="page-item disabled"><a class="page-link">Previous</a></li>
+{% endif %}
+{% if posts.number %}
+<li class="page-item"><a class="page-link">{{ posts.number }}</a></li>
+{% else %}
+<li class="page-item"><a class="page-link">0</a></li>
+{% endif %}
+{% if posts.has_next %}
+<li class="page-item"><a href="?page={{ posts.next_page_number }}" class="page-link">Next</a></li>
+<li class="page-item"><a href="?page={{ posts.paginator.num_pages }}" class="page-link">Last &raquo;</a></li>
+{% else %}
+<li class="page-item disabled"><a class="page-link">Next</a></li>
+<li class="page-item disabled"><a class="page-link">Last &raquo;</a></li>
+{% endif %}</ul></div>
+{% endblock %}

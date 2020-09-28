@@ -1,0 +1,168 @@
+    .thumbsupbutton , .deleting, .editing{
+        color:#454545;
+        font-size: 17px;
+
+    }
+    .editing{
+      color: blue;
+      background-color: transparent;
+      border: none;
+
+    }
+
+    .editing:hover, .delete:hover{
+       color: grey;
+    }
+
+    .deleting{
+        color:red;
+        margin-left: 20px;
+        background-color: transparent;
+        border: none;
+
+    }
+
+    .deleting:hover{
+        color: grey;
+    }
+
+    .card{
+        width:auto;
+        margin:5px;
+    }
+
+    .navbar{
+        background-color:#F5F8FA !important;
+        border-bottom: solid #e1e4e6 1px;
+    }
+
+    .nav-link{
+        font-size: 25px;
+    }
+
+    .page-item{
+        font-size: 15px;
+    }
+
+    .btn-follow{
+        font-size: 30px;
+    }
+
+    .btn-follow:hover{
+        color:grey;
+    }
+
+    .btn-total-follow{
+        font-size: 15px;
+        background-color: transparent;
+        border: none;
+    }
+
+    .follows:hover{
+        color:grey;
+    }
+
+    a{
+        color: black;
+    }
+
+    a:hover{
+        text-decoration: none;
+        color: grey;
+    }
+
+    .details-name{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: black;
+        font-size: 35px;
+        margin:10px;
+    }
+
+    .form-control{
+        font-size: 25px;
+    }
+
+    .login{
+        background-color: white;
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .login-buttom{
+        margin-bottom: 5px;
+    }
+
+    .profilepage{
+        background-color: white;
+        margin: 5px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    .save{
+        font-size: 15px;
+    }
+
+    .alllikes{
+        font-size: 15px;
+    }
+
+    .btn-config{
+        font-size: 30px;
+    }
+
+    .label-config{
+        font-size: 15px;
+    }
+
+    .btn-modal-createdpost{
+      background-color: #f2f2f2;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #a3a3a3;
+      font-size: 25px;
+    }
+
+    .modal-title, .modal-body{
+      font-size: 25px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .close{
+      font-size: 25px;
+    }
+
+    .message{
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 40px;
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 60px;
+      color: #666666;
+    }
+    .data-info{
+        font-size: 15px;
+        color: red;
+    }
+    body{
+        background-color: #1DA1F2;
+    }
+
+    i{
+        margin-right: 3px;
+    }
+    .card-header{
+        font-family:  monospace;
+        font-size:20px;
+    }
+
+    .card-subtitle{
+        font-size:15px;
+    }
+
+    .card-text{
+        color:black;
+        font-size:25px;
+    }
