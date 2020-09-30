@@ -13,7 +13,7 @@
 <span aria-hidden="true">&times;</span>
 </button></div>
 <div class="modal-body">
-<form method=post action="{% url 'createdpost' username=user.username %}">
+<form method=post action="{% url 'created_post' username=user.username %}">
 {% csrf_token %}
 <textarea rows="10" class="form-control" name="textinfo"></textarea>
 <br>
@@ -23,7 +23,7 @@
 {% endif %}
 {% for post in posts %}
 <div class="card border-secondary">
-<h5 class="card-header"><a href="{% url 'profilepage' username=post.user %}">{{post.user|title}}</a></h5>
+<h5 class="card-header"><a href="{% url 'profile_page' username=post.user %}">{{post.user|title}}</a></h5>
 <div class="card-body">
 <h6 class="card-subtitle text-muted">{{post.date}}</h6>
 <p class="card-text">{{post.content}}</p>
@@ -38,7 +38,7 @@
 <a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsup" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% endif %}
 {% else %}
-<p class="alllikes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
+<p class="all_likes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
 {% endif %}
 </div></div>
 <div class="modal fade" id="deleting" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -64,7 +64,7 @@
 <span aria-hidden="true">&times;</span>
 </button></div>
 <div class="modal-body">
-<form method=post action="{% url 'editing' postno=post.id %}">
+<form method=post action="{% url 'editing' post_no=post.id %}">
 {% csrf_token %}
 <textarea rows="10" class="form-control" name="textinfo">{{post.content}}</textarea>
 <br>
