@@ -1,20 +1,20 @@
 {% extends 'network/layout.html' %}
 {% load static %}
 {% block body %}
-<div class="profilepage">
-<h4 class="details-name">{{profileuser.username|title}}</h4>
+<div class="profile_page">
+<h4 class="details-name">{{profile_user.username|title}}</h4>
 <p><span class="btn-total-follow">{{postsno}} Posts </span>
 <button type="button" class="btn-total-follow" data-toggle="modal" data-target="#followers">{{allfollowed}} Followers </button>
 <button type="button" class="btn-total-follow" data-toggle="modal" data-target="#following">{{allfollows}} Following </button>
 </p>
-{% if user.username != profileuser.username %}
-{% if not followedbothways %}
-<form class="text-right" method="post" action="{% url 'profilepage' username=profileuser.username %}">
+{% if user.username != profile_user.username %}
+{% if not followed_both_ways %}
+<form class="text-right" method="post" action="{% url 'profile_page' username=profile_user.username %}">
 {% csrf_token %}
 <button class="btn-follow" type="submit" value="Follow"><i class="fas fa-user-plus"></i></button>
 </form>
-{% elif followedbothways %}
-<form class="text-right" method="post" action="{% url 'profilepage' username=profileuser.username %}">
+{% elif followed_both_ways %}
+<form class="text-right" method="post" action="{% url 'profile_page' username=profile_user.username %}">
 {% csrf_token %}
 <button class="btn-follow" type="submit" value="Unfollow"><i class="fas fa-user-times"></i></button>
 </form>
@@ -29,14 +29,14 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title details-name" id="exampleModalLongTitle">Total Followers: {{allfollowed}}</h5>
+<h5 class="modal-title details-name" id="exampleModalLongTitle">Total Followers: {{all_followed}}</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>
 </div>
 <div class="modal-body">
 {% for follow in follower %}
-<p class="card-header"><a href="{% url 'profilepage' username=follow.follower %}">{{follow.follower|title}}</a></p>
+<p class="card-header"><a href="{% url 'profile_page' username=follow.follower %}">{{follow.follower|title}}</a></p>
 {% endfor %}
 </div>
 </div>
@@ -47,21 +47,21 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title details-name" id="exampleModalLongTitle">Total Following: {{allfollows}}</h5>
+<h5 class="modal-title details-name" id="exampleModalLongTitle">Total Following: {{all_follows}}</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>
 </div>
 <div class="modal-body">
 {% for follow in following %}
-<p class="card-header"><a href="{% url 'profilepage' username=follow.target %}">{{follow.target|title}}</a></p>
+<p class="card-header"><a href="{% url 'profile_page' username=follow.target %}">{{follow.target|title}}</a></p>
 {% endfor %}
 </div>
 </div>
 </div>
 </div>
 
-{% if user.username == profileuser.username %}
+{% if user.username == profile_user.username %}
 <button type="button" class="btn btn-modal-createdpost" data-toggle="modal" data-target="#creation">Welcome
 <em>{{request.user.username|title}}</em>, anything on your mind?</button>
 <div class="modal fade" id="creation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -72,7 +72,7 @@
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span></button></div>
 <div class="modal-body">
-<form method=post action="{% url 'createdpost' username=user.username %}">
+<form method=post action="{% url 'created_post' username=user.username %}">
 {% csrf_token %}
 <textarea rows="10" class="form-control" name="textinfo"></textarea>
 <br>
@@ -84,19 +84,19 @@
 <div class="container">
 {% for post in posts %}
 <div class="card border-secondary">
-<h5 class="card-header"><a href="{% url 'profilepage' username=post.user %}">{{post.user|title}}</a></h5>
+<h5 class="card-header"><a href="{% url 'profile_page' username=post.user %}">{{post.user|title}}</a></h5>
 <div class="card-body">
 <h6 class="card-subtitle text-muted">{{post.date}}</h6>
 <p class="card-text">{{post.content}}</p>
 {% if user.is_authenticated %}
 {% if request.user == post.user %}
-<p class="alllikes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
+<p class="all_likes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
 <button type="button" class="editing" data-toggle="modal" data-target="#editing">Edit</button>
 <button type="button" class="deleting" data-toggle="modal" data-target="#deleting">Delete</button>
 {% elif request.user in post.thumbsuped.all %}
-<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="Unlike" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+<a class="thumbsup_button" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="Unlike" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% else %}
-<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="Like" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+<a class="thumbsup_button" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="Like" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% endif %}
 {% else %}
 <p>Likes: {{post.thumbsuped.all.count}}</p>
@@ -110,9 +110,9 @@
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span></button></div>
 <div class="modal-body">
-<p>Are you sure you want to delete this post? {{profileuser.username|title}}</p>
+<p>Are you sure you want to delete this post? {{profile_user.username|title}}</p>
 <div class="modal-footer">
-<form method=post action="{% url 'deleting' postno=post.id %}">
+<form method=post action="{% url 'deleting' post_no=post.id %}">
 {% csrf_token %}
 <button class="btn btn-outline-danger save" type="submit" value="Delete"><i class="fas fa-check-square"></i> Delete</button>
 </form></div></div></div></div></div>
@@ -125,7 +125,7 @@
 <span aria-hidden="true">&times;</span>
 </button></div>
 <div class="modal-body">
-<form method=post action="{% url 'editing' postno=post.id %}">
+<form method=post action="{% url 'editing' post_no=post.id %}">
 {% csrf_token %}
 <textarea rows="10" class="form-control" name="textinfo">{{post.content}}</textarea>
 <br>
