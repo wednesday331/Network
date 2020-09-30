@@ -1,4 +1,4 @@
-    .thumbsupbutton , .deleting, .editing{
+    .thumbsup_button , .deleting, .editing{
         color:#454545;
         font-size: 17px;
 
@@ -92,7 +92,7 @@
         margin-bottom: 5px;
     }
 
-    .profilepage{
+    .profile_page{
         background-color: white;
         margin: 5px;
         text-align: center;
@@ -104,7 +104,7 @@
         font-size: 15px;
     }
 
-    .alllikes{
+    .all_likes{
         font-size: 15px;
     }
 
