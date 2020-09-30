@@ -7,15 +7,15 @@
 {% endif %}
 {% for post in posts %}
 <div class="card border-secondary mb-3">
-<h5 class="card-header"><a href="{% url 'profilepage' username=post.user %}">{{post.user|title}}</a></h5>
+<h5 class="card-header"><a href="{% url 'profile_page' username=post.user %}">{{post.user|title}}</a></h5>
 <div class="card-body">
 <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
 <p class="card-text">{{post.content}}</p>
 {% if user.is_authenticated %}
 {% if request.user in post.thumbsuped.all %}
-<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsdown" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="margin-right: 4px; color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+<a class="thumbsup_button" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbs_down" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="margin-right: 4px; color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% else %}
-<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsup" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="margin-right: 4px; color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+<a class="thumbsup_button" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbs_up" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="margin-right: 4px; color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% endif %}
 {% else %}
 <p><i class="fas fa-heart"></i>{{post.thumbsuped.all.count}}</p>
