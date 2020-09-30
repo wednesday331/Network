@@ -10,8 +10,8 @@ urlpatterns = [
     path("followed/<str:username>", views.followed, name='followed'),
     path("posts/<int:postno>/editing", views.editing, name="editing"),
     path("<str:postno>/deleting", views.deleting, name="deleting"),
-    path("profilepage/<str:username>", views.profilepage, name="profilepage"),
+    path("profilepage/<str:username>", views.profile_page, name="profile_page"),
     path("profilepage/configuration/<str:username>", views.configuration, name="configuration"),
-    path("profilepage/<str:username>/createdpost", views.createdpost, name="createdpost"),
-    url(r'^postlikes/$', views.postlikes, name='postlikes')
+    path("profilepage/<str:username>/createdpost", views.created_post, name="created_post"),
+    url(r'^postlikes/$', views.post_likes, name='post_likes')
 ]
