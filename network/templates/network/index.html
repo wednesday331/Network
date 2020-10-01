@@ -15,7 +15,7 @@
 <div class="modal-body">
 <form method=post action="{% url 'created_post' username=user.username %}">
 {% csrf_token %}
-<textarea rows="10" class="form-control" name="textinfo"></textarea>
+<textarea rows="10" class="form-control" name="text_info"></textarea>
 <br>
 <div class="modal-footer">
 <button class="btn btn-outline-secondary save" type="submit" value="Create"> Done</button>
@@ -29,13 +29,13 @@
 <p class="card-text">{{post.content}}</p>
 {% if user.is_authenticated %}
 {% if request.user == post.user %}
-<p class="alllikes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
+<p class="all_likes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
 <button type="button" class="editing" data-toggle="modal" data-target="#editing">Edit</button>
 <button type="button" class="deleting" data-toggle="modal" data-target="#deleting">Delete</button>
 {% elif request.user in post.thumbsuped.all %}
-<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsdown" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+<a class="thumbsup_button" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsdown" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:red;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% else %}
-<a class="thumbsupbutton" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsup" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
+<a class="thumbsup_button" href="#" data-catid="{{ post.id }}" id="{{post.id}}" data-total="{{post.thumbsuped.all.count}}"  data-value="thumbsup" value="submit"><i class="fas fa-heart" id="hearted{{post.id}}" style="color:black;"></i><span id="thumbsuped{{post.id}}">{{post.thumbsuped.all.count}}</span></a>
 {% endif %}
 {% else %}
 <p class="all_likes"><i class="fas fa-heart"></i> {{post.thumbsuped.all.count}}</p>
@@ -64,9 +64,9 @@
 <span aria-hidden="true">&times;</span>
 </button></div>
 <div class="modal-body">
-<form method=post action="{% url 'editing' post_no=post.id %}">
+<form method=post action="{% url 'editing' postno=post.id %}">
 {% csrf_token %}
-<textarea rows="10" class="form-control" name="textinfo">{{post.content}}</textarea>
+<textarea rows="10" class="form-control" name="text_info">{{post.content}}</textarea>
 <br>
 <div class="modal-footer">
 <button class="btn btn-outline-secondary save" type="submit" value="Save">Done</button>

@@ -19,7 +19,7 @@ class Edit(forms.Form):
     text_info = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}),
                                label='')
 
-# Function for the Home Page     
+# Function for the Home Page
 def index(request):
     """Home page displaying the posts."""
     posts = Post.objects.all().order_by('id').reverse()
@@ -130,7 +130,7 @@ def profile_page(request, username):
                          'all_followed': all_followed,
                          'followed_both_ways': followed_both_ways
                         }
-            return render(request, "network/profilepage.html", textinfo)
+            return render(request, "network/profilepage.html", text_info)
 
     else:
         user_present = request.user
@@ -169,19 +169,19 @@ def profile_page(request, username):
                          'posts': object,
                          'follow': follow,
                          'all_follows': all_follows,
-                         'followed': followed, 
+                         'followed': followed,
                          'all_followed': all_followed,
                          'followed_both_ways': followed_both_ways
                         }
             return render(request, "network/profilepage.html", text_info)
 
-# Post Likes Function        
+# Post Likes Function
 def post_likes(request):
     """Contains code for liking/disliking a post."""
     user_profile = request.user
     if request.method == 'GET':
-        post_no = request.GET['post_no']
-        post_liked = Post.objects.get(pk=post_no)
+        postno = request.GET['postno']
+        post_liked = Post.objects.get(pk=postno)
         if user_profile in post_liked.thumbsuped.all():
             post_liked.thumbsuped.remove(user_profile)
             liked = Like.objects.get(post=post_liked, user=user_profile)
@@ -192,17 +192,17 @@ def post_likes(request):
             post_liked.save()
         return HttpResponse('Success')
 
-#Editing function    
-def editing(request, post_no):
+#Editing function
+def editing(request, postno):
     """Contains code to edit a post."""
     if request.method == 'POST':
-        post_content = Post.objects.get(pk=post_no)
+        post_content = Post.objects.get(pk=postno)
         text_info = request.POST["text_info"]
         post_content.content = text_info
         post_content.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-#Creating a post    
+#Creating a post
 def created_post(request, username):
     """Contains code to create a post"""
     if request.method == 'POST':
@@ -214,7 +214,7 @@ def created_post(request, username):
         post.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-# Follow/Unfollow Function        
+# Follow/Unfollow Function
 def followed(request, username):
     """Contains code to follow/unfollow someone"""
     if request.method == 'GET':
@@ -234,7 +234,7 @@ def followed(request, username):
         posts = pagination.get_page(page_no)
         return render(request, 'network/followed.html', {'posts':posts})
 
-# Configuration Function    
+# Configuration Function
 def configuration(request, username):
     """Contains code for the configuration settings of a profile."""
     user_profile = request.user
@@ -266,10 +266,10 @@ def configuration(request, username):
         profile_page.save()
         return redirect('profile_page', profile_page)
 
-# Delete Function    
-def deleting(request, post_no):
+# Delete Function
+def deleting(request, postno):
     """Contains code to delete a post."""
-    post_to_delete = Post.objects.get(pk=post_no)
+    post_to_delete = Post.objects.get(pk=postno)
     if request.method == 'POST':
         post_to_delete.delete()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
